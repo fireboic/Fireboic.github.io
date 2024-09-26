@@ -1,0 +1,96 @@
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <!-- This is an ad-free website -->
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Simple Search</title>
+      <link rel="icon" type="image/png" href="https://tr.rbxcdn.com/61ce43da249f4365417dfceb56f375a2/352/352/Avatar/Png">
+      <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+        #toolbar { background-color: #f1f1f1; padding: 10px; display: flex; justify-content: space-between; align-items: center; }
+        #site-selector { padding: 5px; }
+        #ab-cloak-btn, #save-html-btn, #login-btn, #signup-btn, #toggle-menu-btn { margin-left: 10px; padding: 5px 10px; }
+        #emulator { width: 100%; height: calc(100% - 50px); border: none; }
+        #folder-text { margin-left: 10px; cursor: pointer; }
+        #menu-popup { display: none; position: fixed; left: 50%; top: 60px; transform: translateX(-50%); background: white; padding: 20px; border: 1px solid #ccc; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+        #menu-popup.show { display: block; }
+        #menu-popup button { display: block; width: 100%; margin-bottom: 10px; padding: 10px; }
+        .project-link { cursor: pointer; color: blue; text-decoration: underline; }
+      </style>
+    </head>
+    <body>
+      <div id="toolbar">
+        <div>
+          <label for="site-selector">Select site:</label>
+          <form id="site-form" method="get" style="display:inline;">
+            <select id="site-selector" name="site" onchange="this.form.submit()">
+              <option value="flipgrid" >flipgrid.gq</option>
+              <option value="rammerhead" selected>browser.rammerhead.org</option>
+            </select>
+          </form>
+          SimpleSearch
+          <span id="folder-text" onclick="toggleFolders()">Folders</span>
+        </div>
+        <div>
+          <a href="https://sites.google.com/view/gwnoclub/home" target="_blank" class="project-link">Project by Cxb</a>
+          <span style="margin-left: 10px;">Browser Version 1.0</span>
+          <form method="get" style="display: inline;">
+            <input type="hidden" name="action" value="save">
+            <button type="submit" id="save-html-btn">Save as HTML</button>
+          </form>
+          <form method="get" target="_blank" style="display: inline;">
+            <input type="hidden" name="action" value="abcloak">
+            <button type="submit" id="ab-cloak-btn">AB Cloak</button>
+          </form>
+          <a href="/?action=login" id="login-btn">Login</a>
+             <a href="/?action=signup" id="signup-btn">Sign Up</a>
+          <button id="toggle-menu-btn" onclick="toggleMenu()">Menu</button>
+        </div>
+      </div>
+      <iframe id="emulator" src="https://browser.rammerhead.org/"></iframe>
+      <div id="menu-popup">
+        <button onclick="toggleContent('search')">Search</button>
+        <button onclick="toggleContent('project')">Project</button>
+        <button onclick="backToMainSites()">Back to Main Sites</button>
+        <h3>Sites</h3>
+        <ul>
+          <li><a href="#" onclick="loadSite('https://sites.google.com/view/dbz/home')">DBZ Home</a></li>
+          <li><a href="#" onclick="loadSite('https://sites.google.com/site/classroom6x/')">Classroom 6x</a></li>
+          <li><a href="#" onclick="loadSite('https://example.com')">Example Site</a></li>
+          <li><a href="#" onclick="loadSite('https://google.com')">Google</a></li>
+        </ul>
+      </div>
+      <script>
+        function toggleMenu() {
+          const menuPopup = document.getElementById('menu-popup');
+          menuPopup.classList.toggle('show');
+        }
+
+        function toggleFolders() {
+          alert('Folder functionality coming soon!');
+        }
+
+        function toggleContent(contentType) {
+          // Placeholder function for toggling content
+          console.log('Toggle content:', contentType);
+          toggleMenu();
+        }
+
+        function backToMainSites() {
+          const currentSite = document.getElementById('site-selector').value;
+          const mainSiteUrl = currentSite === 'rammerhead' ? 'https://browser.rammerhead.org/' : 'https://flipgrid.gq/';
+          document.getElementById('emulator').src = mainSiteUrl;
+          toggleMenu();
+        }
+
+        function loadSite(url) {
+          document.getElementById('emulator').src = url;
+          toggleMenu();
+        }
+      </script>
+    </body>
+    </html>
+  
