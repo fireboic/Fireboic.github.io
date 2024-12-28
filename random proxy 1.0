@@ -1,0 +1,28 @@
+npm install express http-proxy-middleware
+
+const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
+const app = express();
+
+const TARGET_URL = 'https://statistics.biologyscholar.org';
+
+// Create a proxy middleware
+app.use('/', createProxyMiddleware({
+    target: TARGET_URL,
+    changeOrigin: true,
+    onProxyReq: (proxyReq, req, res) => {
+        // Modify the request headers if needed
+        proxyReq.setHeader('Host', TARGET_URL);
+    },
+    onProxyRes: (proxyRes, req, res) => {
+        // Modify the response headers if needed
+        proxyRes.headers['x-added'] = 'foobar';
+    }
+}));
+
+// Start the server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Proxy server is running on port ${PORT}`);
+});
